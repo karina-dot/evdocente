@@ -15,7 +15,9 @@ class CreateEvaluacionesTable extends Migration
     {
         Schema::create('evaluaciones', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('id_academico'); 
             $table->foreignId('id_academico')->constrained('academicos');
+            $table->unsignedInteger('id_comision'); 
             $table->foreignId('id_comision')->constrained('comisiones');
             $table->string('actividad_docencia_tiempo');
             $table->string('actividad_investigacion_tiempo');
@@ -52,6 +54,7 @@ class CreateEvaluacionesTable extends Migration
             $table->string('extension_vinculacion_total');
             $table->string('administracion_academica_total');
             $table->string('nota_final');
+            $table->string('comentario_secretario');
             $table->timestamps();
         });
     }

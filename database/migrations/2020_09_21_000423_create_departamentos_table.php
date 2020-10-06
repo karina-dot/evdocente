@@ -16,6 +16,7 @@ class CreateDepartamentosTable extends Migration
         Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_departamento');
+            $table->unsignedInteger('id_facultad'); 
             $table->foreignId('id_facultad')->constrained('facultades');
             $table->timestamps();
         });

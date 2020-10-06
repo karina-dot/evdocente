@@ -16,6 +16,7 @@ class CreateComisionesTable extends Migration
         Schema::create('comisiones', function (Blueprint $table) {
             $table->id();
             $table->string('year_comision');
+            $table->unsignedInteger('id_facultad'); 
             $table->foreignId('id_facultad')->constrained('facultades');
             $table->string('miembro_uno');
             $table->string('miembro_dos');

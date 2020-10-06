@@ -16,7 +16,8 @@ class CreatePeriodosTable extends Migration
         Schema::create('periodos', function (Blueprint $table) {
             $table->id();
             $table->string('year_periodo');
-            $table->foreignId('id_academico')->constrained('academicos');
+            $table->unsignedInteger('id_comision'); 
+            $table->foreignId('id_comision')->constrained('comisiones');
             $table->timestamps();
         });
     }

@@ -15,7 +15,10 @@ class CreateGraficosTable extends Migration
     {
         Schema::create('graficos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_academico')->constrained('academicos');
+            $table->unsignedInteger('id_academico');
+            $table->foreignId('id_academico')->references('id')->on('academicos');
+            $table->unsignedInteger('id_facultad');
+            $table->foreignId('id_facultad')->references('id')->on('facultad');
             $table->string('year_grafico');
             $table->timestamps();
         });

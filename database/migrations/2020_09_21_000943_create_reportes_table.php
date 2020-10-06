@@ -16,7 +16,10 @@ class CreateReportesTable extends Migration
         Schema::create('reportes', function (Blueprint $table) {
             $table->id();
             $table->string('year_reporte');
+            $table->unsignedInteger('id_academico'); 
             $table->foreignId('id_academico')->constrained('academicos');
+            $table->unsignedInteger('id_comision'); 
+            $table->foreignId('id_comision')->constrained('comisiones');
             $table->timestamps();
         });
     }
