@@ -20,11 +20,12 @@ class CreateAcademicosTable extends Migration
             $table->string('apellido_academico');
             $table->string('titulo_profesional');
             $table->string('grado_academico');
-            $table->foreignId('id_departamento')->constrained('departamentos');
             $table->string('categoria');
             $table->string('horas');
             $table->string('tipo_planta');
             $table->string('estado_academico');
+            $table->foreignId('id_departamento')->constrained('departamentos');
+            $table->foreignId('id_facultad')->constrained('facultades');
             $table->timestamps();
         });
     }

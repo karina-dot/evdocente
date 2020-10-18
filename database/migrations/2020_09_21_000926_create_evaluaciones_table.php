@@ -15,10 +15,6 @@ class CreateEvaluacionesTable extends Migration
     {
         Schema::create('evaluaciones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_academico'); 
-            $table->foreignId('id_academico')->constrained('academicos');
-            $table->unsignedInteger('id_comision'); 
-            $table->foreignId('id_comision')->constrained('comisiones');
             $table->string('actividad_docencia_tiempo');
             $table->string('actividad_investigacion_tiempo');
             $table->string('extension_vinculacion_tiempo');
@@ -28,7 +24,7 @@ class CreateEvaluacionesTable extends Migration
             $table->string('actividad_investigacion_e');
             $table->string('extension_vinculacion_e');
             $table->string('administracion_academica_e');
-            $table->string('otras_actividades_mb');
+            $table->string('otras_actividades_e');
             $table->string('actividad_docencia_mb');
             $table->string('actividad_investigacion_mb');
             $table->string('extension_vinculacion_mb');
@@ -55,6 +51,8 @@ class CreateEvaluacionesTable extends Migration
             $table->string('administracion_academica_total');
             $table->string('nota_final');
             $table->string('comentario_secretario');
+            $table->foreignId('id_academico')->constrained('academicos');
+            $table->foreignId('id_comision')->constrained('comisiones');
             $table->timestamps();
         });
     }
