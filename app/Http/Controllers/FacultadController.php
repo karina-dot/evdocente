@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Facultad;
 
 class FacultadController extends Controller
 {
@@ -23,7 +24,7 @@ class FacultadController extends Controller
      */
     public function create()
     {
-        //
+        return view('facultads.create');
     }
 
     /**
@@ -34,7 +35,17 @@ class FacultadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'nombre' => 'required',
+            'decano' => 'required',
+        ]);
+
+        $facultad = new Facultad;
+        $facultad->nombre = request('nombre');
+        $facultad->decano = request('decano');
+        $facultad->save();
+
+        return redirect('/facultads/show');
     }
 
     /**
@@ -45,7 +56,8 @@ class FacultadController extends Controller
      */
     public function show($id)
     {
-        //
+        $facultads = Facultad::all();
+        return view('facultads.show', compact('facultads'));
     }
 
     /**
@@ -56,7 +68,8 @@ class FacultadController extends Controller
      */
     public function edit($id)
     {
-        //
+        $facultad = Facultad::find($id);
+        return view('facultads.editar', compact('facultad'));
     }
 
     /**
@@ -68,7 +81,17 @@ class FacultadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+            'nombre' => 'required',
+            'decano' => 'required',
+        ]);
+
+        $facultad = Facultad::find($id);
+        $facultad->nombre = request('nombre');
+        $facultad->decano = request('decano');
+        $facultad->save();
+        
+        return redirect('/facultads/show');
     }
 
     /**
@@ -79,6 +102,9 @@ class FacultadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $facultad = Facultad::findOrfail($id);
+        $facultad ->delete();
+
+        return redirect('/facultads/show');
     }
 }

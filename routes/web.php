@@ -25,3 +25,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group('prefix' => 'admin','as' => 'admin' ], function(){
+    Route::get('/', function () { return "Estas en admin"; });
+    Route::get('/usuarios', function () { return "Estas en usuarios";});
+    

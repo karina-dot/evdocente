@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Periodo;
 
 class PeriodoController extends Controller
 {
@@ -23,7 +24,7 @@ class PeriodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('periodos.create');
     }
 
     /**
@@ -34,7 +35,15 @@ class PeriodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'year' => 'required',
+        ]);
+
+        $periodo = new Periodo;
+        $periodo->year = request('year');
+        $periodo->save();
+
+        return redirect('/');
     }
 
     /**
@@ -45,7 +54,8 @@ class PeriodoController extends Controller
      */
     public function show($id)
     {
-        //
+        $periodos = Periodo::all();
+        return view('periodos.show', compact('periodos'));
     }
 
     /**

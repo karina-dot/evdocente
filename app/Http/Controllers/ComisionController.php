@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comision;
 
 class ComisionController extends Controller
 {
@@ -23,7 +24,7 @@ class ComisionController extends Controller
      */
     public function create()
     {
-        //
+        return view('comisions.create');
     }
 
     /**
@@ -34,7 +35,27 @@ class ComisionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'year' => 'required',
+            'facultad' => 'required',
+            'rut' => 'required',
+            'decano' => 'required',
+            'miembro_uno'=> 'required',
+            'miembro_dos'=> 'required',
+            'fecha_pie'=> 'required',
+        ]);
+        
+        $comision = new Comision;
+        $comision->year = request('year');
+        $comision->facultad = request('facultad');
+        $comision->rut = request('rut');
+        $comision->decano = request('decano');
+        $comision->miembro_uno = request('miembro_uno');
+        $comision->miembro_dos = request('miembro_dos');
+        $comision->fecha_pie = request('fecha_pie');
+        $comision->save();
+
+        return redirect('/comisions/show');
     }
 
     /**
@@ -45,7 +66,8 @@ class ComisionController extends Controller
      */
     public function show($id)
     {
-        //
+        $comisions = Comision::all();
+        return view('comisions.show', compact('comisions'));
     }
 
     /**
@@ -56,7 +78,8 @@ class ComisionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comision = Comision::find($id);
+        return view('comisions.editar', compact('comision'));
     }
 
     /**
@@ -68,7 +91,27 @@ class ComisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+            'year' => 'required',
+            'facultad' => 'required',
+            'rut' => 'required',
+            'decano' => 'required',
+            'miembro_uno'=> 'required',
+            'miembro_dos'=> 'required',
+            'fecha_pie'=> 'required',
+        ]);
+        
+        $comision = Comision::find($id);
+        $comision->year = request('year');
+        $comision->facultad = request('facultad');
+        $comision->rut = request('rut');
+        $comision->decano = request('decano');
+        $comision->miembro_uno = request('miembro_uno');
+        $comision->miembro_dos = request('miembro_dos');
+        $comision->fecha_pie = request('fecha_pie');
+        $comision->save();
+
+        return redirect('/comisions/show');
     }
 
     /**
@@ -79,6 +122,9 @@ class ComisionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comision = Comision::finOrfail($id);
+        $comision ->delete();
+
+        return redirect('/comisions/show');
     }
 }

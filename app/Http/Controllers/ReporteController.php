@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reporte;
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
@@ -13,7 +14,7 @@ class ReporteController extends Controller
      */
     public function index()
     {
-        //
+    
     }
 
     /**
@@ -23,7 +24,7 @@ class ReporteController extends Controller
      */
     public function create()
     {
-        //
+        return view('reportes.create');
     }
 
     /**
@@ -34,7 +35,21 @@ class ReporteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'year' => 'required',
+            'pdf' => 'required',
+            'excel' => 'required',
+            'firma' => 'required',
+        ]);
+
+        $reporte = new Reporte();
+        $reporte->year = request('year');
+        $reporte->pdf = request('pdf');
+        $reporte->excel = request('excel');
+        $reporte->firma = request('firma');
+        $reporte->save();
+
+        return redirect('/');
     }
 
     /**
@@ -45,7 +60,8 @@ class ReporteController extends Controller
      */
     public function show($id)
     {
-        //
+        $reportes = Reporte::all();
+        return view('reportes.index', compact ('reportes'));
     }
 
     /**
